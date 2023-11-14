@@ -38,6 +38,11 @@ a:hover {
     margin: 0rem 0.7rem
 }
 
+nav {
+    background-color: rgb(7, 11, 64);
+    position: sticky;
+}
+
 .ac {
     font-weight: bold;
     color: #e0726c;
@@ -82,6 +87,11 @@ form>* {
 /* img {
     background-color: antiquewhite
 } */
+
+#logo {
+    height: 50px;
+    width: auto;
+}
 
 #tiktoklogo {
     height: 300px;
