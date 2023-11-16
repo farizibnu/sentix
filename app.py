@@ -19,10 +19,9 @@ class RegistrationForm(FlaskForm):
 
 @app.route('/')
 def index():
-    form = RegistrationForm()
-    return render_template('register.html', form=form)
+    return render_template('login.html')
 
-@app.route('/register', methods=['POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def signup():
     form = RegistrationForm()
 
@@ -54,7 +53,7 @@ def login():
         if existing_user and existing_user['password'] == password:
             session['username'] = username
             flash(f'Hello, {username}! You are now logged in.', 'success')
-            return render_template('login.html')
+            return render_template('hashtag-search.html')
 
         flash('Invalid username or password. Please try again.', 'danger')
 
