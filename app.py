@@ -40,7 +40,6 @@ def signup():
             return redirect(url_for('index'))
 
         flash('Username already exists. Choose a different one.', 'danger')
-
     return render_template('register.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -67,5 +66,16 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
-if __name__ == '__main__':
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    # Process the search form data here
+    # You can access form data like this: request.form['your_input_field_name']
+    # Implement your search logic here
+
+    # For demonstration purposes, let's pass a sample result to the template
+    search_results = [{"username": "Sample User"}]
+
+    return render_template("hashtag-search.html", search_results=search_results)
+
+if __name__ == "__main__":
     app.run(debug=True)
