@@ -1,87 +1,87 @@
 html,
 body {
-    height: 100%
+  height: 100%;
 }
 
 body {
-    background-image: url("img/background-login.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+  background-image: url("img/background-login.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .card {
-    padding: 0px 15px;
-    border-radius: 20px
+  padding: 0px 15px;
+  border-radius: 20px;
 }
 
 .c1 {
-    background-color: #fff1f1;
-    border-radius: 20px
+  background-color: #fff1f1;
+  border-radius: 20px;
 }
 
 a {
-    margin: 0px;
-    font-size: 13px;
-    border-radius: 7px;
-    text-decoration: none;
-    color: black
+  margin: 0px;
+  font-size: 13px;
+  border-radius: 7px;
+  text-decoration: none;
+  color: black;
 }
 
 a:hover {
-    color: #e0726c;
-    background-color: #fff2f1
+  color: #e0726c;
+  background-color: #fff2f1;
 }
 
 .nav-link {
-    padding: 1rem 1.4rem;
-    margin: 0rem 0.7rem
+  padding: 1rem 1.4rem;
+  margin: 0rem 0.7rem;
 }
 
 nav {
-    background-color: rgb(7, 11, 64);
-    position: sticky;
+  background-color: rgb(7, 11, 64);
+  position: sticky;
 }
 
 .ac {
-    font-weight: bold;
-    color: #e0726c;
+  font-weight: bold;
+  color: #e0726c;
 }
 
 input,
 button {
-    width: 96%;
-    background-color: #fff2f1;
-    border-radius: 8px;
-    padding: 8px 17px;
-    font-size: 13px;
-    border: 1px solid #f5f0ef;
-    color: #dccece
+  width: 96%;
+  background-color: #fff2f1;
+  border-radius: 8px;
+  padding: 8px 17px;
+  font-size: 13px;
+  border: 1px solid #f5f0ef;
+  color: #dccece;
 }
 
 input {
-    text-decoration: none
+  text-decoration: none;
 }
 
 .bt {
-    background-color: #ff4133;
-    border: 1px solid rgb(300, 200, 200)
+  background-color: #ff4133;
+  border: 1px solid rgb(300, 200, 200);
 }
 
 form {
-    margin-top: 70px
+  margin-top: 70px;
 }
 
-form>* {
-    margin: 10px 0px
+form > * {
+  margin: 10px 0px;
 }
 
 #forgot {
-    margin: 0px -60px
+  margin: 0px -60px;
 }
 
 #register {
-    text-align: center
+  text-align: center;
 }
 
 /* img {
@@ -89,23 +89,55 @@ form>* {
 } */
 
 #logo {
-    height: 50px;
-    width: auto;
+  height: 50px;
+  width: auto;
 }
 
 #tiktoklogo {
-    height: 300px;
-    width: auto;
+  height: 300px;
+  width: auto;
 }
 
 .wlcm {
-    font-size: 30px
+  font-size: 30px;
 }
 
 .sp1 {
-    font-size: 5px
+  font-size: 5px;
 }
 
-.sp1>span {
-    background-color: #f0c3be
+.sp1 > span {
+  background-color: #f0c3be;
+}
+
+.sticky-navbar {
+  position: sticky;
+  top: 0;
+  background-color: #734984;
+  z-index: 1000;
+}
+
+.mr-5 {
+  margin-right: 1.25rem;
+  padding: 0.5rem;
+}
+
+#user {
+  height: 30px;
+  width: auto;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.user-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-right: 40px;
+}
+
+.user-container h5 {
+  font-size: 16px;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
