@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berliana.El Sentix Sign Up</title>
+    <title>Sentix - Hashtag Search</title>
     <!-- Include Bootstrap CSS from a CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -35,7 +35,7 @@
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <a href="#"  style="color: white; text-decoration: none; border-bottom: 1px solid transparent;">
-                            <img class="m-1" id="logo" src="{{ url_for('static', filename='img/woman.png') }}" alt="Logo">
+                            <img class="m-1" id="logo" src="{{ url_for('static', filename='img/user.png') }}" alt="Logo">
                             Berliana.El
                         </a>
                     </li>
@@ -75,7 +75,15 @@
                             <!-- Contoh Data -->
                             <tr>
                                 <th scope="row">1</th>
-                                <td>Sample Video</td>
+                                <td>
+                                    <iframe
+                                        src="https://www.tiktok.com/@soclean.yt/video/7283118591140957442"
+                                        width="100%"
+                                        height="200"
+                                        frameborder="0"
+                                        allowfullscreen>
+                                    </iframe>
+                                </td>
                                 <td>Sample Description</td>
                                 <td>Sample Sentimen</td>
                             </tr>
