@@ -142,3 +142,19 @@ form>* {
 #searchHashtagCard {
     margin: 100px 0;
 }
+
+.likesTable {
+    width: 100px;
+}
+
+.repliesTable {
+    width: 100px;
+}
+
+.usernameTable {
+    width: 200px;
+}
+
+.sentimentTable {
+    width: 100px;
+}
