@@ -76,5 +76,18 @@ def search():
 
     return render_template("hashtag-search.html", search_results=search_results)
 
+
+@app.route("/result", methods=["GET", "POST"])
+def result():
+    # Process the search form data here
+    # You can access form data like this: request.form['your_input_field_name']
+    # Implement your search logic here
+
+    # For demonstration purposes, let's pass a sample result to the template
+    result = [{"username": "Sample User"}]
+
+    return render_template("result.html", result=result)
+
+
 if __name__ == "__main__":
     app.run(debug=True)
