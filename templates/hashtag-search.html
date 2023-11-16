@@ -97,6 +97,13 @@
             </div>
         </div>
     </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <script>
+            alert("{{ messages[-1] }}");
+        </script>
+    {% endif %}
+    {% endwith %}
     <script>
         document.getElementById('searchForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevents the form from submitting (and reloading the page)
