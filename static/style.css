@@ -16,21 +16,16 @@ body {
 }
 
 .c1 {
-  background-color: #fff1f1;
+  background-color: rgb(229, 216, 235);
   border-radius: 20px;
 }
 
 a {
-  margin: 0px;
-  font-size: 13px;
-  border-radius: 7px;
   text-decoration: none;
-  color: black;
 }
 
 a:hover {
-  color: #e0726c;
-  background-color: #fff2f1;
+  text-decoration: underline;
 }
 
 .nav-link {
@@ -38,9 +33,19 @@ a:hover {
   margin: 0rem 0.7rem;
 }
 
-nav {
-  background-color: rgb(7, 11, 64);
+.nav-link:focus {
+  outline: none;
+}
+
+.nav-link:hover {
+  border-bottom: 1px solid white;
+}
+
+.navbar {
   position: sticky;
+  top: 0;
+  background-color: #080727;
+  z-index: 1000;
 }
 
 .ac {
@@ -110,34 +115,28 @@ form > * {
   background-color: #f0c3be;
 }
 
-.sticky-navbar {
-  position: sticky;
-  top: 0;
-  background-color: #734984;
-  z-index: 1000;
+.search-btn {
+  background-color: #ff4133;
+  width: 10%;
+  border-radius: 200px;
 }
 
-.mr-5 {
-  margin-right: 1.25rem;
-  padding: 0.5rem;
+.search-btn:hover {
+  background-color: #c83328;
 }
 
-#user {
-  height: 30px;
-  width: auto;
-  background-color: white;
-  border-radius: 50%;
+.search-form {
+  border-radius: 200px;
+  height: 50px;
+  border-color: #000;
 }
 
-.user-container {
+.center {
   display: flex;
+  justify-content: center;
   align-items: center;
-  margin-top: 10px;
-  margin-right: 40px;
 }
 
-.user-container h5 {
-  font-size: 16px;
-  margin-left: 5px;
-  margin-bottom: 5px;
+#searchHashtagCard {
+  margin: 100px 0;
 }

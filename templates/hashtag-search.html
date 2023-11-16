@@ -15,7 +15,7 @@
     />
   </head>
   <body>
-    <nav class="sticky-navbar">
+    <nav>
       <div class="d-flex justify-content-between">
         <div>
           <img
@@ -25,16 +25,12 @@
             alt="Logo"
           />
         </div>
-        <div class="user-container">
-          <img
-            id="user"
-            src="{{ url_for('static', filename='img/user.png') }}"
-            alt="user"
-          />
-          <h5 class="text-white p-2">Berliana.El</h5>
+        <div class="mr-5">
+          <h5 class="text-white p-2">Username</h5>
         </div>
       </div>
     </nav>
+
     <div class="container-fluid pt-4">
       <div class="row justify-content-center">
         <div class="col-12 col-sm-10 col-md-12 col-lg-11 col-xl-10">
