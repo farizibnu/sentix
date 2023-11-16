@@ -16,7 +16,7 @@ body {
 }
 
 .c1 {
-    background-color: #fff1f1;
+    background-color: rgb(229, 216, 235);
     border-radius: 20px
 }
 
@@ -28,19 +28,31 @@ a {
     color: black
 }
 
-a:hover {
+/* a:hover {
     color: #e0726c;
     background-color: #fff2f1
-}
+} */
 
 .nav-link {
     padding: 1rem 1.4rem;
     margin: 0rem 0.7rem
 }
 
-nav {
-    background-color: rgb(7, 11, 64);
+.nav-link:focus {
+    outline: none; 
+}
+
+.nav-link:hover {
+    border-bottom: 1px solid white;
+}
+
+
+
+.navbar {
     position: sticky;
+    top: 0;
+    background-color: #080727; 
+    z-index: 1000;
 }
 
 .ac {
