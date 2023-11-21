@@ -5,6 +5,7 @@ from flask_pymongo import PyMongo
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email
+import re
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/Tubes'
@@ -74,14 +75,20 @@ def logout():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    # Process the search form data here
-    # You can access form data like this: request.form['your_input_field_name']
-    # Implement your search logic here
+    if request.method == "POST":
+        hashtag = request.form.get("hashtag")
 
-    # For demonstration purposes, let's pass a sample result to the template
-    search_results = [{"username": "Sample User"}]
+        # Find posts that contain the specified hashtag in the 'hashtags' array
+        search_results = mongo.db.posts.find({"hashtags": hashtag})
 
-    return render_template("hashtag-search.html", search_results=search_results)
+        print("success")
+
+        flash('Search successful.', 'success')
+        return render_template("hashtag-search.html", search_results=search_results)
+
+    print("failed")
+
+    return render_template("hashtag-search.html", search_results=[])
 
 
 @app.route('/result', methods=['GET', 'POST'])
@@ -94,10 +101,15 @@ def result():
 
     if result:
         comments = result.get('comments', [])
-        return render_template('result.html', comments=comments)
+
+        # Calculate the counts of positive and negative sentiments
+        positive_count = sum(1 for comment in comments if comment.get('sentiment') == 'positive')
+        negative_count = sum(1 for comment in comments if comment.get('sentiment') == 'negative')
+
+        return render_template('result.html', comments=comments, positive_count=positive_count, negative_count=negative_count)
 
     flash(f'No comments found for postId {postId_to_display}', 'info')
-    return render_template('result.html', comments=[])
+    return render_template('result.html', comments=[], positive_count=0, negative_count=0)
 
 
 if __name__ == "__main__":
