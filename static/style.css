@@ -1,5 +1,6 @@
 html,
 body {
+  font-family: "Montserrat", sans-serif;
   height: 100%;
 }
 
@@ -46,6 +47,7 @@ a:hover {
   top: 0;
   background-color: #080727;
   z-index: 1000;
+  height: 80px;
 }
 
 .ac {
@@ -96,6 +98,10 @@ form > * {
 #logo {
   height: 50px;
   width: auto;
+}
+
+#user-logo {
+  height: 40px;
 }
 
 #tiktoklogo {
@@ -155,4 +161,14 @@ form > * {
 
 .sentimentTable {
   width: 100px;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.logout-icon {
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
 }
