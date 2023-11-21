@@ -170,3 +170,19 @@ form>* {
 .text-bold {
     font-weight: 700;
 }
+
+button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: blue;
+    color: white;
+}
+button.clicked {
+    background-color: blue;
+    color: white;
+}
