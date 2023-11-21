@@ -90,8 +90,8 @@
                                 </div>
                                 <div class="col-md-6 d-flex justify-content-end align-items-center">
                                     <div class="my-4">
-                                        <h6 class="mb-2">Jumlah Sentimen Positif: 24 {{ positive_sentiments }}</h6>
-                                        <h6>Jumlah Sentimen Negatif: 23 {{ negative_sentiments }}</h6>
+                                        <h6 class="mb-2">Jumlah Sentimen Positif: {{ positive_count }}</h6>
+                                        <h6>Jumlah Sentimen Negatif: {{ negative_count }}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,15 @@
                                     {% for comment in comments %}
                                     <tr>
                                         <td>{{ comment.text }}</td>
-                                        <td>{{ comment.sentiment }}</td>
+                                        <td>
+                                            {% if comment.sentiment == 'positive' %}
+                                                <span class="badge text-bg-success">Positive</span>
+                                            {% elif comment.sentiment == 'negative' %}
+                                                <span class="badge text-bg-danger">Negative</span>
+                                            {% else %}
+                                                <span class="badge text-bg-secondary">Neutral</span>
+                                            {% endif %}
+                                        </td>
                                     </tr>
                                     {% endfor %}
                                 </tbody>

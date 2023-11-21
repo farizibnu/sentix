@@ -56,7 +56,7 @@
                             <h3 class="text-bold">Search Hashtag</h3>
                             <form id="searchForm" action="/search" method="post" class="text-center mb-5">
                                 <div class="input-group">
-                                    <input type="text" class="form-control search-form" placeholder="#Jungkook" />
+                                    <input type="text" name="hashtag" class="form-control search-form" placeholder="#Jungkook" />
                                 </div>
                                 <button class="btn btn-primary search-btn" type="submit">Search</button>
                             </form>
@@ -68,40 +68,19 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Video</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Sentimen</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Hashtags</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Contoh Data -->
+                            {% for post in search_results %}
                             <tr>
-                                <th scope="row">1</th>
-                                <td>
-                                    <iframe
-                                        src="https://www.tiktok.com/@soclean.yt/video/7283118591140957442"
-                                        width="100%"
-                                        height="200"
-                                        frameborder="0"
-                                        allowfullscreen>
-                                    </iframe>
-                                </td>
-                                <td>Sample Description</td>
-                                <td>Sample Sentimen</td>
+                                <td>{{ post.id }}</td>
+                                <td>{{ post.user }}</td>
+                                <td>{{ post.hashtags | join(', ') }}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Sample Video</td>
-                                <td>Sample Description</td>
-                                <td>Sample Sentimen</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Sample Video</td>
-                                <td>Sample Description</td>
-                                <td>Sample Sentimen</td>
-                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
