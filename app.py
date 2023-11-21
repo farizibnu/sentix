@@ -77,16 +77,20 @@ def search():
     return render_template("hashtag-search.html", search_results=search_results)
 
 
-@app.route("/result", methods=["GET", "POST"])
+@app.route('/result', methods=['GET', 'POST'])
 def result():
-    # Process the search form data here
-    # You can access form data like this: request.form['your_input_field_name']
-    # Implement your search logic here
+    # Hardcoded postId for demonstration purposes
+    postId_to_display = '7293132261325540614'
 
-    # For demonstration purposes, let's pass a sample result to the template
-    result = [{"username": "Sample User"}]
+    # Fetch comments for the specified postId
+    result = mongo.db.comments.find_one({'postId': postId_to_display})
 
-    return render_template("result.html", result=result)
+    if result:
+        comments = result.get('comments', [])
+        return render_template('result.html', comments=comments)
+
+    flash(f'No comments found for postId {postId_to_display}', 'info')
+    return render_template('result.html', comments=[])
 
 
 if __name__ == "__main__":
