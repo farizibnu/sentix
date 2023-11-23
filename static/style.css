@@ -170,3 +170,25 @@ form>* {
 .text-bold {
     font-weight: 700;
 }
+
+.logout-icon {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+  }
+  
+  button {
+      background-color: transparent;
+      color: black;
+      border: none;
+      cursor: pointer;
+  }
+  
+  button:hover {
+      background-color: blue;
+      color: white;
+  }
+  button.clicked {
+      background-color: blue;
+      color: white;
+  }
