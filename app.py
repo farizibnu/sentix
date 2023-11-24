@@ -61,9 +61,16 @@ def login():
     return render_template('login.html')
 
 @app.route('/logout')
+# def logout():
+#     session.pop('username', None)
+#     flash('You have been logged out.', 'info')
+#     return redirect(url_for('index'))
+
 def logout():
-    session.pop('username', None)
-    flash('You have been logged out.', 'info')
+    # Check if the user is logged in before logging out
+    if 'username' in session:
+        session.pop('username', None)
+        flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
 @app.route("/search", methods=["GET", "POST"])

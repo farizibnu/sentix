@@ -1,98 +1,94 @@
-
-
 html,
 body {
-    font-family: 'Montserrat', sans-serif;
-    height: 100%
+  font-family: "Montserrat", sans-serif;
+  height: 100%;
 }
 
 body {
-    background-image: url("img/background-login.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+  background-image: url("img/background-login.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .card {
-    padding: 0px 15px;
-    border-radius: 20px
+  padding: 0px 15px;
+  border-radius: 20px;
 }
 
 .c1 {
-    background-color: rgb(229, 216, 235);
-    border-radius: 20px
+  background-color: rgb(229, 216, 235);
+  border-radius: 20px;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .nav-link {
-    padding: 1rem 1.4rem;
-    margin: 0rem 0.7rem
+  padding: 1rem 1.4rem;
+  margin: 0rem 0.7rem;
 }
 
 .nav-link:focus {
-    outline: none; 
+  outline: none;
 }
 
 .nav-link:hover {
-    border-bottom: 1px solid white;
+  border-bottom: 1px solid white;
 }
 
-
-
 .navbar {
-    position: sticky;
-    top: 0;
-    background-color: #080727; 
-    z-index: 1000;
-    height: 80px;
+  position: sticky;
+  top: 0;
+  background-color: #080727;
+  z-index: 1000;
+  height: 80px;
 }
 
 .ac {
-    font-weight: bold;
-    color: #e0726c;
+  font-weight: bold;
+  color: #e0726c;
 }
 
 input,
 button {
-    width: 96%;
-    background-color: #fff2f1;
-    border-radius: 8px;
-    padding: 8px 17px;
-    font-size: 13px;
-    border: 1px solid #f5f0ef;
-    color: #dccece
+  width: 96%;
+  background-color: #fff2f1;
+  border-radius: 8px;
+  padding: 8px 17px;
+  font-size: 13px;
+  border: 1px solid #f5f0ef;
+  color: #dccece;
 }
 
 input {
-    text-decoration: none
+  text-decoration: none;
 }
 
 .bt {
-    background-color: #ff4133;
-    border: 1px solid rgb(300, 200, 200)
+  background-color: #ff4133;
+  border: 1px solid rgb(300, 200, 200);
 }
 
 form {
-    margin-top: 70px
+  margin-top: 70px;
 }
 
-form>* {
-    margin: 10px 0px
+form > * {
+  margin: 10px 0px;
 }
 
 #forgot {
-    margin: 0px -60px
+  margin: 0px -60px;
 }
 
 #register {
-    text-align: center
+  text-align: center;
 }
 
 /* img {
@@ -100,95 +96,96 @@ form>* {
 } */
 
 #logo {
-    height: 50px;
-    width: auto;
+  height: 50px;
+  width: auto;
 }
 
 #user-logo {
-    height: 40px;
+  height: 40px;
 }
 
 #tiktoklogo {
-    height: 300px;
-    width: auto;
+  height: 300px;
+  width: auto;
 }
 
 .wlcm {
-    font-size: 30px
+  font-size: 30px;
 }
 
 .sp1 {
-    font-size: 5px
+  font-size: 5px;
 }
 
-.sp1>span {
-    background-color: #f0c3be
+.sp1 > span {
+  background-color: #f0c3be;
 }
 
 .search-btn {
-    background-color: #ff4133;
-    width: 10%;
-    border-radius: 200px;
+  background-color: #ff4133;
+  width: 10%;
+  border-radius: 200px;
 }
 
 .search-btn:hover {
-    background-color: #c83328;
+  background-color: #c83328;
 }
 
 .search-form {
-    border-radius: 200px;
-    height: 50px;
-    border-color: #000;
+  border-radius: 200px;
+  height: 50px;
+  border-color: #000;
 }
 
 .center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #searchHashtagCard {
-    margin: 100px 0;
+  margin: 100px 0;
 }
 
 .likesTable {
-    width: 100px;
+  width: 100px;
 }
 
 .repliesTable {
-    width: 100px;
+  width: 100px;
 }
 
 .usernameTable {
-    width: 200px;
+  width: 200px;
 }
 
 .sentimentTable {
-    width: 100px;
+  width: 100px;
 }
 
 .text-bold {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .logout-icon {
-    margin-right: 5px;
-    width: 20px;
-    height: 20px;
-  }
-  
-  button {
-      background-color: transparent;
-      color: black;
-      border: none;
-      cursor: pointer;
-  }
-  
-  button:hover {
-      background-color: blue;
-      color: white;
-  }
-  button.clicked {
-      background-color: blue;
-      color: white;
-  }
+  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+button {
+    background-color: transparent;
+    color: black;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: blue;
+    color: white;
+}
+button.clicked {
+    background-color: blue;
+    color: white;
+}
+
