@@ -189,3 +189,23 @@ button.clicked {
     color: white;
 }
 
+.membership-card {
+  height: 3rem;
+  width: 8rem;
+  font-size: 1rem;
+  font-family: 'Allan', serif;
+}
+
+.modal-backdrop {
+  --bs-backdrop-zindex: 0;
+}
+
+.card-member {
+  border-radius: 6px;
+}
+
+.round {
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+}

@@ -6,6 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email
 import re
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/Tubes'
@@ -22,6 +23,9 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Register')
+
+regular_user_search_limit = 3
+user_search_counts = {}
 
 @app.route('/')
 def index():
@@ -43,7 +47,8 @@ def signup():
             users.insert_one({
                 'username': form.username.data,
                 'password': form.password.data,
-                'email': form.email.data
+                'email': form.email.data,
+                'membership': 'regular'
             })
             flash('Registration successful!', 'success')
             return redirect(url_for('index'))
@@ -62,6 +67,7 @@ def login():
 
         if existing_user and existing_user['password'] == password:
             session['username'] = username
+            session['membership'] = existing_user['membership']
             flash(f'Hello, {username}! You are now logged in.', 'success')
             return render_template('hashtag-search.html')
 
@@ -79,6 +85,7 @@ def logout():
     # Check if the user is logged in before logging out
     if 'username' in session:
         session.pop('username', None)
+        session.pop('membership', None)
         flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
@@ -171,6 +178,25 @@ def sentiment_analysis():
     flash("Sentiment analysis and update completed.", "info")
     return redirect(url_for('index'))
 
+@app.route('/change_membership', methods=['POST'])
+def change_membership():
+    new_membership = request.form.get('membership')
+
+    # Get the 'users' collection from MongoDB
+    users_collection = mongo.db.users
+
+    # Update the 'membership' field in the user's document
+    # Assuming you have a unique identifier for the user, e.g., 'username'
+    username = session['username']
+
+    # Update the 'membership' field in the user's document
+    users_collection.update_one({'username': username}, {'$set': {'membership': new_membership}})
+
+    # Update the session with the new membership
+    session['membership'] = new_membership
+
+    flash(f'Membership changed to {new_membership.capitalize()}', 'success')
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)
