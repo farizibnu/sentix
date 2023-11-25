@@ -111,6 +111,43 @@ def result():
     flash(f'No comments found for postId {postId_to_display}', 'info')
     return render_template('result.html', comments=[], positive_count=0, negative_count=0)
 
+# New route for sentiment analysis
+@app.route('/sentiment-analysis')
+def sentiment_analysis():
+    # Connect to MongoDB
+    client = pymongo.MongoClient("mongodb://localhost:27017/")
+    db = client["db_tiktok"]
+    collection = db["comments"]
+
+    # Load sentiment analysis model and tokenizer
+    pretrained = "mdhugol/indonesia-bert-sentiment-classification"
+    model = AutoModelForSequenceClassification.from_pretrained(pretrained)
+    tokenizer = AutoTokenizer.from_pretrained(pretrained)
+    sentiment_analysis = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+
+    # Loop through documents in the collection
+    for doc in collection.find():
+        # Loop through comments in the document
+        for comment_key, comment_value in enumerate(doc.get('comments', [])):
+            if 'text' in comment_value:
+                # Get the text from the 'text' field of each comment
+                text = comment_value['text']
+
+                # Perform sentiment analysis
+                label_index = {'LABEL_0': 'positive', 'LABEL_1': 'neutral', 'LABEL_2': 'negative'}
+                result = sentiment_analysis(text)
+                label = result[0]['label']
+                score = result[0]['score']
+
+                # Update the comment in MongoDB with the sentiment
+                collection.update_one(
+                    {'_id': doc['_id'], f'comments.{comment_key}.text': text},
+                    {'$set': {f'comments.{comment_key}.sentiment': label_index[label]}}
+                )
+
+    flash("Sentiment analysis and update completed.", "info")
+    return redirect(url_for('index'))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
