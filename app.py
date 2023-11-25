@@ -6,6 +6,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email
 import re
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/Tubes'
@@ -17,6 +18,9 @@ class RegistrationForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Register')
+
+regular_user_search_limit = 3
+user_search_counts = {}
 
 @app.route('/')
 def index():
@@ -76,20 +80,28 @@ def logout():
         flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
-@app.route("/search", methods=["GET", "POST"])
+@app.route('/search', methods=["GET", "POST"])
 def search():
     if request.method == "POST":
         hashtag = request.form.get("hashtag")
 
-        # Find posts that contain the specified hashtag in the 'hashtags' array
+        # Check if the user is a regular user and has reached the search limit
+        if session['membership'] == 'regular':
+            if 'username' in session:
+                username = session['username']
+                if username in user_search_counts:
+                    # Check if the user has reached the search limit
+                    if user_search_counts[username] >= regular_user_search_limit:
+                        flash(f'Regular users are limited to {regular_user_search_limit} searches per day.', 'warning')
+                        return render_template("hashtag-search.html", search_results=[])
+
+                # Update the user's search count
+                user_search_counts[username] = user_search_counts.get(username, 0) + 1
+
+        # Continue with the search logic
         search_results = mongo.db.posts.find({"hashtags": hashtag})
-
-        print("success")
-
         flash('Search successful.', 'success')
         return render_template("hashtag-search.html", search_results=search_results)
-
-    print("failed")
 
     return render_template("hashtag-search.html", search_results=[])
 
@@ -155,8 +167,15 @@ def sentiment_analysis():
 def change_membership():
     new_membership = request.form.get('membership')
 
-    # Perform the logic to update the user's membership in your database
-    # For example, you can update the 'membership' field in the user's document
+    # Get the 'users' collection from MongoDB
+    users_collection = mongo.db.users
+
+    # Update the 'membership' field in the user's document
+    # Assuming you have a unique identifier for the user, e.g., 'username'
+    username = session['username']
+
+    # Update the 'membership' field in the user's document
+    users_collection.update_one({'username': username}, {'$set': {'membership': new_membership}})
 
     # Update the session with the new membership
     session['membership'] = new_membership
