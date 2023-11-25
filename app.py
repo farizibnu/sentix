@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, url_for, flash, session, request
 # ... (other imports)
-
+from pymongo import MongoClient
 from flask_pymongo import PyMongo
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
@@ -12,6 +12,11 @@ app.config['MONGO_URI'] = 'mongodb://localhost:27017/Tubes'
 app.secret_key = 'bond123'
 mongo = PyMongo(app)
 
+client = MongoClient('mongodb://localhost:27017/')
+db = client['Tubes']  # Ganti 'Tubes' dengan nama database Anda
+collection1 = db['posts']  # Ganti 'nama_koleksi1' dengan nama koleksi pertama Anda
+collection2 = db['comments']  # Ganti 'nama_koleksi2' dengan nama koleksi kedua Anda
+
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -21,6 +26,10 @@ class RegistrationForm(FlaskForm):
 @app.route('/')
 def index():
     return render_template('login.html')
+
+@app.route('/test')
+def test():
+    return render_template('test-search.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def signup():
@@ -73,28 +82,41 @@ def logout():
         flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
-@app.route("/search", methods=["GET", "POST"])
+# @app.route("/search", methods=["GET", "POST"])
+# def search():
+#     if request.method == "POST":
+#         hashtag = request.form.get("hashtag")
+
+#         # Find posts that contain the specified hashtag in the 'hashtags' array
+#         search_results = mongo.db.posts.find({"hashtags": hashtag})
+
+#         print("success")
+
+#         flash('Search successful.', 'success')
+#         return render_template("hashtag-search.html", search_results=search_results)
+
+#     print("failed")
+
+#     return render_template("hashtag-search.html", search_results=[])
+@app.route('/search', methods=['POST'])
 def search():
-    if request.method == "POST":
-        hashtag = request.form.get("hashtag")
+    search_query = request.form.get('hashtag')
+    
+    # Misalkan Anda ingin mencari data berdasarkan field 'hashtags' di dalam koleksi 'collection1'
+    # results_collection1 = collection1.find({'hashtags': {'$regex': re.compile(search_query, re.IGNORECASE)}})
+    results_collection1 = collection1.find({'hashtags': {'$in': [search_query]}})
+    # # Ambil _id dari hasil pencarian pertama di collection1
+    # ids = [result['id'] for result in results_collection1]
 
-        # Find posts that contain the specified hashtag in the 'hashtags' array
-        search_results = mongo.db.posts.find({"hashtags": hashtag})
-
-        print("success")
-
-        flash('Search successful.', 'success')
-        return render_template("hashtag-search.html", search_results=search_results)
-
-    print("failed")
-
-    return render_template("hashtag-search.html", search_results=[])
-
+    # # Lakukan pencarian di collection2 berdasarkan 'postId' yang sesuai dengan ids dari collection1
+    # results_collection2 = collection2.find({'postId': {'$in': ids}}, {'comments': 1})
+    
+    return render_template('hashtag-result.html', results1=results_collection1)
 
 @app.route('/result', methods=['GET', 'POST'])
 def result():
     # Hardcoded postId for demonstration purposes
-    postId_to_display = '7293132261325540614'
+    postId_to_display = request.form.get('postId')
 
     # Fetch comments for the specified postId
     result = mongo.db.comments.find_one({'postId': postId_to_display})
@@ -105,11 +127,12 @@ def result():
         # Calculate the counts of positive and negative sentiments
         positive_count = sum(1 for comment in comments if comment.get('sentiment') == 'positive')
         negative_count = sum(1 for comment in comments if comment.get('sentiment') == 'negative')
+        neutral_count = sum(1 for comment in comments if comment.get('sentiment') == 'neutral')
 
-        return render_template('result.html', comments=comments, positive_count=positive_count, negative_count=negative_count)
+        return render_template('result.html', comments=comments, positive_count=positive_count, negative_count=negative_count, neutral_count=neutral_count)
 
     flash(f'No comments found for postId {postId_to_display}', 'info')
-    return render_template('result.html', comments=[], positive_count=0, negative_count=0)
+    return render_template('result.html', comments=[], positive_count=0, negative_count=0, neutral_count=0)
 
 # New route for sentiment analysis
 @app.route('/sentiment-analysis')

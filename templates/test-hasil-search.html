@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hasil Pencarian</title>
+</head>
+<body>
+    <h1>Hasil Pencarian</h1>
+
+    <!-- Menampilkan hasil dari collection1 -->
+    <h2>Hasil dari Collection 1</h2>
+    <ul>
+        {% for result1 in results1 %}
+            <li>{{ result1.id }}</li>  <!-- Ganti field_name dengan nama field yang ingin ditampilkan dari collection1 -->
+        {% endfor %}
+    </ul>
+
+    <!-- Menampilkan hasil dari collection2 -->
+    <!-- <h2>Hasil dari Collection 2</h2>
+    <ul>
+        {% for result2 in results2 %}
+            <li>
+                <h3>Data dalam comments:</h3>
+                <ul>
+                    {% for comment in result2.comments %}
+                        <li>
+                            Sentimen: {{ comment.sentiment }}  
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul> -->
+</body>
+</html>
