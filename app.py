@@ -34,7 +34,8 @@ def signup():
             users.insert_one({
                 'username': form.username.data,
                 'password': form.password.data,
-                'email': form.email.data
+                'email': form.email.data,
+                'membership': 'regular'
             })
             flash('Registration successful!', 'success')
             return redirect(url_for('index'))
@@ -53,6 +54,7 @@ def login():
 
         if existing_user and existing_user['password'] == password:
             session['username'] = username
+            session['membership'] = existing_user['membership']
             flash(f'Hello, {username}! You are now logged in.', 'success')
             return render_template('hashtag-search.html')
 
@@ -70,6 +72,7 @@ def logout():
     # Check if the user is logged in before logging out
     if 'username' in session:
         session.pop('username', None)
+        session.pop('membership', None)
         flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
@@ -148,6 +151,18 @@ def sentiment_analysis():
     flash("Sentiment analysis and update completed.", "info")
     return redirect(url_for('index'))
 
+@app.route('/change_membership', methods=['POST'])
+def change_membership():
+    new_membership = request.form.get('membership')
+
+    # Perform the logic to update the user's membership in your database
+    # For example, you can update the 'membership' field in the user's document
+
+    # Update the session with the new membership
+    session['membership'] = new_membership
+
+    flash(f'Membership changed to {new_membership.capitalize()}', 'success')
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(debug=True)

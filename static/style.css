@@ -189,3 +189,9 @@ button.clicked {
     color: white;
 }
 
+.membership-card {
+  height: 3rem;
+  width: 8rem;
+  font-size: 1rem;
+  font-family: 'Allan', serif;
+}
