@@ -209,3 +209,29 @@ button.clicked {
   height: 20px;
   width: 20px;
 }
+
+/* Add transitions to the clickable cards */
+.clickable-card {
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Style for the selected card */
+.selected {
+  box-shadow: 0 2px 4px 0 rgba(219, 215, 215, 0.5), 0 0 0 3px #3057d5;
+}
+
+/* Add a hover effect to the clickable cards */
+.clickable-card:hover {
+  box-shadow: 0 2px 4px 0 rgba(219, 215, 215, 0.5), 0 0 0 1px #496ee7;
+}
+
+/* Adjust the 'Change Membership' button style */
+#changeMembershipBtn {
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Disable the button when not selected */
+#changeMembershipBtn:disabled {
+  background-color: #6c757d !important;
+}
