@@ -109,6 +109,14 @@ def logout():
 def search():
     if request.method == "POST":
         search_query = request.form.get('hashtag')
+        membership_type = session.get('membership', 'regular')
+
+        # Check if the user has reached the search limit for regular membership
+        if membership_type == 'regular':
+            user_search_count = user_search_counts.get(session['username'], 0)
+            if user_search_count >= regular_user_search_limit:
+                alert_message = f'You have reached the maximum search limit for regular membership ({regular_user_search_limit} searches per day). Upgrade to premium for unlimited searches.'
+                return render_template('hashtag-search.html', alert_message=alert_message)
 
         results_count = collection1.count_documents({'hashtags': {'$in': [search_query]}})
 
@@ -116,11 +124,16 @@ def search():
             # If no results are found, redirect to the 'search_not_found' route
             return redirect(url_for('search_not_found'))
 
+        # Increment the user's search count for regular membership
+        if membership_type == 'regular':
+            user_search_counts[session['username']] = user_search_count + 1
+
         results_collection1 = collection1.find({'hashtags': {'$in': [search_query]}})
         return render_template('hashtag-result.html', results1=results_collection1)
 
     # Handle GET request
     return render_template('hashtag-search.html')  # Update with the template for the search form
+
 
 # Route for handling the case where searched hashtag is not found
 @app.route('/search_not_found')
