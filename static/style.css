@@ -235,3 +235,7 @@ button.clicked {
 #changeMembershipBtn:disabled {
   background-color: #6c757d !important;
 }
+
+ul#recommendations li {
+  display:inline;
+}

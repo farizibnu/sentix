@@ -105,20 +105,45 @@ def logout():
 #     print("failed")
 
 #     return render_template("hashtag-search.html", search_results=[])
-@app.route('/search', methods=['POST'])
+@app.route('/search', methods=['GET', 'POST'])
 def search():
-    search_query = request.form.get('hashtag')
-    
-    # Misalkan Anda ingin mencari data berdasarkan field 'hashtags' di dalam koleksi 'collection1'
-    # results_collection1 = collection1.find({'hashtags': {'$regex': re.compile(search_query, re.IGNORECASE)}})
-    results_collection1 = collection1.find({'hashtags': {'$in': [search_query]}})
-    # # Ambil _id dari hasil pencarian pertama di collection1
-    # ids = [result['id'] for result in results_collection1]
+    if request.method == "POST":
+        search_query = request.form.get('hashtag')
 
-    # # Lakukan pencarian di collection2 berdasarkan 'postId' yang sesuai dengan ids dari collection1
-    # results_collection2 = collection2.find({'postId': {'$in': ids}}, {'comments': 1})
-    
-    return render_template('hashtag-result.html', results1=results_collection1)
+        # Check the user's membership type from the session
+        membership_type = session.get('membership', 'regular')
+
+        # Check the user's remaining search limit for the day
+        remaining_search_limit = user_search_counts.get(session['username'], regular_user_search_limit)
+
+        # Check if the user has reached the daily search limit
+        if membership_type == 'regular' and remaining_search_limit <= 0:
+            flash('You have reached the daily search limit. Upgrade to premium for unlimited searches.', 'warning')
+            return render_template('hashtag-search.html')  # Render the search form
+
+        # Perform the hashtag search
+        results_count = collection1.count_documents({'hashtags': {'$in': [search_query]}})
+
+        if results_count == 0:
+            # If no results are found, redirect to the 'search_not_found' route
+            return redirect(url_for('search_not_found'))
+
+        # Update the remaining search limit for the user
+        if membership_type == 'regular':
+            user_search_counts[session['username']] -= 1
+
+        # Fetch and display the search results
+        results_collection1 = collection1.find({'hashtags': {'$in': [search_query]}})
+        return render_template('hashtag-result.html', results1=results_collection1)
+
+    # Handle GET request
+    return render_template('hashtag-search.html')  # Update with the template for the search form
+
+
+# Route for handling the case where searched hashtag is not found
+@app.route('/search_not_found')
+def search_not_found():
+    return render_template('no-results.html')
 
 @app.route('/result', methods=['GET', 'POST'])
 def result():
