@@ -26,6 +26,8 @@ class RegistrationForm(FlaskForm):
 
 regular_user_search_limit = 3
 user_search_counts = {}
+results_per_page = 10
+
 
 @app.route('/')
 def index():
@@ -89,22 +91,6 @@ def logout():
         flash('You have been logged out.', 'info')
     return redirect(url_for('index'))
 
-# @app.route("/search", methods=["GET", "POST"])
-# def search():
-#     if request.method == "POST":
-#         hashtag = request.form.get("hashtag")
-
-#         # Find posts that contain the specified hashtag in the 'hashtags' array
-#         search_results = mongo.db.posts.find({"hashtags": hashtag})
-
-#         print("success")
-
-#         flash('Search successful.', 'success')
-#         return render_template("hashtag-search.html", search_results=search_results)
-
-#     print("failed")
-
-#     return render_template("hashtag-search.html", search_results=[])
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     if request.method == "POST":
