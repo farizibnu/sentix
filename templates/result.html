@@ -188,11 +188,11 @@
                                         <td>{{ comment.text }}</td>
                                         <td>
                                             {% if comment.sentiment == 'positive' %}
-                                            <span class="badge text-bg-success">Positive</span>
+                                            <span class="badge text-bg-success" style="width: 85px;">Positive</span>
                                             {% elif comment.sentiment == 'negative' %}
-                                            <span class="badge text-bg-danger">Negative</span>
+                                            <span class="badge text-bg-danger" style="width: 85px;">Negative</span>
                                             {% else %}
-                                            <span class="badge text-bg-secondary">Neutral</span>
+                                            <span class="badge text-bg-secondary" style="width: 85px;">Neutral</span>
                                             {% endif %}
                                         </td>
                                     </tr>
