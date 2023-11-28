@@ -1,5 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, flash, session, request
-# ... (other imports)
+from flask import Response
+import csv
+from io import StringIO
 from pymongo import MongoClient
 from flask_pymongo import PyMongo
 from flask_wtf import FlaskForm
@@ -203,6 +205,40 @@ def change_membership():
 
     flash(f'Membership changed to {new_membership.capitalize()}', 'success')
     return redirect(url_for('index'))
+
+
+@app.route('/export_csv', methods=['POST'])
+def export_csv():
+    # Get the postId from the form data
+    postId = request.form.get('postId')
+
+    # Fetch comments for the specified postId
+    result = mongo.db.comments.find_one({'postId': postId})
+
+    if result:
+        comments = result.get('comments', [])
+
+        # Prepare CSV data
+        csv_data = [['Comment Text', 'Sentiment']]
+        for comment in comments:
+            csv_data.append([comment.get('text', ''), comment.get('sentiment', '')])
+
+        # Create a CSV file in memory
+        csv_buffer = StringIO()
+        csv_writer = csv.writer(csv_buffer)
+        csv_writer.writerows(csv_data)
+
+        # Create a Flask Response with CSV data
+        response = Response(
+            csv_buffer.getvalue(),
+            content_type='text/csv',
+            headers={'Content-Disposition': f'attachment;filename={postId}_comments.csv'}
+        )
+
+        return response
+
+    flash(f'No comments found for postId {postId}', 'info')
+    return redirect(url_for('search'))
 
 if __name__ == "__main__":
     app.run(debug=True)

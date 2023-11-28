@@ -169,7 +169,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Hashtags</th>
-                                <th scope="col" style="width: 100px;">Detail</th>
+                                <th scope="col" style="width: 150px;">Detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -178,9 +178,13 @@
                                 <td>{{ post.id }}</td>
                                 <td>{{ post.user }}</td>
                                 <td>{{ post.hashtags | join(', ') }}</td>
-                                <form action="/result" method="POST">
+                                <form action="{{ url_for('result') }}" method="POST">
                                     <input type="hidden" name="postId" value="{{ post.id }}">
                                     <td><button type="submit" class="btn btn-primary">Detail</button></td>
+                                </form>
+                                <form action="{{ url_for('export_csv') }}" method="POST">
+                                    <input type="hidden" name="postId" value="{{ post.id }}">
+                                    <td style="width: 120px;"><button type="submit" class="btn btn-success">Export CSV</button></td>
                                 </form>
                             </tr>
                             {% endfor %}
