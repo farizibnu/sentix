@@ -16,6 +16,10 @@ body {
   border-radius: 20px;
 }
 
+.card-result {
+  border-radius: 0;
+}
+
 .c1 {
   background-color: rgb(229, 216, 235);
   border-radius: 20px;
@@ -238,4 +242,28 @@ button.clicked {
 
 ul#recommendations li {
   display:inline;
+}
+
+.pagination {
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.card-sentimen {
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+}
+
+.bg-green {
+  background-color: rgb(25,135,84);
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-grey {
+  background-color: grey;
 }
