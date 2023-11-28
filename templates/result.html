@@ -156,49 +156,42 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <form id="searchForm" action="/result" method="post" class="text-center my-4">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control search-form"
-                                                placeholder="#Jungkook" />
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-md-6 d-flex justify-content-end align-items-center">
-                                    <div class="my-4">
-                                        <h6 class="mb-2">Jumlah Sentimen Positif: {{ positive_count }}</h6>
-                                        <h6>Jumlah Sentimen Negatif: {{ negative_count }}</h6>
-                                        <h6>Jumlah Sentimen Neutral: {{ neutral_count }}</h6>
-                                    </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6 d-flex justify-content-start align-items-center my-2">
+                                        <div class="card-sentimen bg-green text-bold ms-5">Positive: {{ positive_count }}</div>
+                                        <div class="card-sentimen bg-red text-bold ms-5">Negative: {{ negative_count }}</div>
+                                        <div class="card-sentimen bg-grey text-bold ms-5">Neutral: {{ neutral_count }}</div>
                                 </div>
                             </div>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <!-- <th class="usernameTable" scope="col">Username</th> -->
-                                        <th scope="col">Comment</th>
-                                        <!-- <th class="likesTable" scope="col">Likes</th>
-                                        <th class="repliesTable" scope="col">Replies</th> -->
-                                        <th class="sentimentTable" scope="col">Sentimen</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for comment in comments %}
-                                    <tr>
-                                        <td>{{ comment.text }}</td>
-                                        <td>
-                                            {% if comment.sentiment == 'positive' %}
-                                            <span class="badge text-bg-success" style="width: 85px;">Positive</span>
-                                            {% elif comment.sentiment == 'negative' %}
-                                            <span class="badge text-bg-danger" style="width: 85px;">Negative</span>
-                                            {% else %}
-                                            <span class="badge text-bg-secondary" style="width: 85px;">Neutral</span>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
+                            <div class="table-container" style="max-height: 54vh; overflow-y: auto;">
+                                <table class="table table-striped">
+                                    <thead style="position: sticky; top: 0;">
+                                        <tr>
+                                            <!-- <th class="usernameTable" scope="col">Username</th> -->
+                                            <th scope="col">Comment</th>
+                                            <!-- <th class="likesTable" scope="col">Likes</th>
+                                            <th class="repliesTable" scope="col">Replies</th> -->
+                                            <th class="sentimentTable" scope="col">Sentimen</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for comment in comments %}
+                                        <tr>
+                                            <td>{{ comment.text }}</td>
+                                            <td>
+                                                {% if comment.sentiment == 'positive' %}
+                                                <span class="badge text-bg-success" style="width: 85px;">Positive</span>
+                                                {% elif comment.sentiment == 'negative' %}
+                                                <span class="badge text-bg-danger" style="width: 85px;">Negative</span>
+                                                {% else %}
+                                                <span class="badge text-bg-secondary" style="width: 85px;">Neutral</span>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <div class="p-2 col-md-1"></div>
@@ -287,6 +280,31 @@
             document.getElementById('changeMembershipBtn').addEventListener('click', function () {
                 // Submit the form
                 document.getElementById('membershipForm').submit();
+            });
+        </script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Select the search input element
+                var searchInput = document.querySelector("#searchInput");
+        
+                // Add an input event listener to the search input
+                searchInput.addEventListener("input", function () {
+                    // Get the search input value
+                    var searchTerm = searchInput.value.toLowerCase();
+        
+                    // Select all comment rows
+                    var commentRows = document.querySelectorAll(".comment-row");
+        
+                    // Loop through each comment row and hide/show based on the search term
+                    commentRows.forEach(function (row) {
+                        var commentText = row.querySelector("td:first-child").innerText.toLowerCase();
+                        if (commentText.includes(searchTerm)) {
+                            row.style.display = ""; // Show the row
+                        } else {
+                            row.style.display = "none"; // Hide the row
+                        }
+                    });
+                });
             });
         </script>
 </body>
